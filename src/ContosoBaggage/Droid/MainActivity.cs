@@ -24,7 +24,7 @@ namespace ContosoBaggage.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            AppCenter.Start("7f7f0407-c5bb-4093-b986-3070b348f1e5",
+            AppCenter.Start("752570ef-ccd6-4e28-84fb-54a71f82c7ac",
                    typeof(Analytics), typeof(Crashes));
 
 

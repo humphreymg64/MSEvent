@@ -24,7 +24,7 @@ namespace ContosoBaggage.iOS
     {
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            AppCenter.Start("e2b72caf-65e8-4355-ba1d-88fe9ad7ea12",
+            AppCenter.Start("82b3adcf-18fc-4b7b-8c94-03ad0dee675a",
                    typeof(Analytics), typeof(Crashes));
 
             InitIoC();
