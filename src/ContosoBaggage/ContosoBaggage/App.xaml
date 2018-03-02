@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:controls="clr-namespace:ContosoBaggage.Controls;assembly=ContosoBaggage"
+    xmlns:converters="clr-namespace:ContosoBaggage.Converters;assembly=ContosoBaggage"
+    x:Class="ContosoBaggage.App">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <!-- converters -->
+            <converters:NotConverter x:Key="notConverter"/>
+            <converters:ItemTappedEventArgsConverter x:Key="ItemTappedConverter" />
+            <converters:StringToColorConverter x:Key="stringToColorConverter" />
+
+            <!-- colors -->
+            <Color x:Key="gray">#555555</Color>
+            <Color x:Key="midgray">#878b93</Color>
+            <Color x:Key="darkgray">#77767b</Color>
+            <Color x:Key="lightgray">#f5f5f5</Color>
+            <Color x:Key="aquablue">#1CA7ED</Color>
+            <Color x:Key="blue">#3675b4</Color>
+            <Color x:Key="darkblue">#202939</Color>
+            <Color x:Key="lightpurple">#f4f3f8</Color>
+            <Color x:Key="red">#B00000</Color>
+            <Color x:Key="green">#1d7223</Color>
+
+            <!-- styles -->
+            <Style x:Key="separator" TargetType="ContentView">
+                <Setter Property="BackgroundColor" Value="#1FFF" />
+                <Setter Property="HeightRequest" Value="1" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+            <DataTemplate x:Key="flightDetailsView">
+                <Grid RowSpacing="0"
+                    ColumnSpacing="0"
+                    Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView BackgroundColor="{StaticResource darkgray}"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"/>
+                    
+                    <BoxView BackgroundColor="{StaticResource lightpurple}"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"/>
+                    
+                    <Label x:Name="FlightNumberLabel"
+                        Text="{Binding FlightNumber}"
+                        TextColor="{StaticResource gray}"
+                        HorizontalTextAlignment="Center"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        Grid.Row="1"/>
+
+                    <StackLayout Orientation="Horizontal"
+                        Spacing="5"
+                        Grid.Row="1"
+                        Grid.Column="1">
+
+                        <controls:SvgImage
+                            Source="{Binding FlightStatusIcon}"
+                            WidthRequest="15"
+                            Margin="0, 12, 0, 0"
+                            Color="{Binding FlightStatusColor, Converter={StaticResource stringToColorConverter}}"/>
+                        
+                        <Label x:Name="FlightStatusLabel"
+                            Text="{Binding FlightStatus}"
+                            TextColor="{Binding FlightStatusColor, Converter={StaticResource stringToColorConverter}}"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            FontSize="16"
+                            FontAttributes="Bold"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical"
+                        BackgroundColor="White"
+                        Grid.Row="2"
+                        Grid.Column="0">
+
+                        <Label x:Name="FlightFromLabel"
+                            Text="{Binding DepartureAirportCode}"
+                            TextColor="{StaticResource blue}"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            FontSize="60"/>
+
+                        <Label x:Name="FlightFromTakeOffTimeLabel"
+                            Text="{Binding DepartureTime, StringFormat='Departs {0:t}'}"
+                            TextColor="{StaticResource darkgray}"
+                            HorizontalTextAlignment="Center"
+                            FontSize="20"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical"
+                        BackgroundColor="White"
+                        Grid.Row="2"
+                        Grid.Column="1">
+
+                        <Label x:Name="FlightToLabel"
+                            Text="{Binding ArrivalAirportCode}"
+                            TextColor="{StaticResource blue}"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            FontSize="60"/>
+
+                        <Label x:Name="FlightToTakeOffTimeLabel"
+                            Text="{Binding ArrivalTime, StringFormat='Arrives {0:t}'}"
+                            TextColor="{StaticResource darkgray}"
+                            HorizontalTextAlignment="Center"
+                            FontSize="20"/>
+                    </StackLayout>
+
+                    <ContentView Grid.Row="2"
+                        Grid.ColumnSpan="2">
+                        <controls:SvgImage
+                            Source="flightland.svg"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="15"
+                            Color="{StaticResource darkgray}"/>
+                    </ContentView>
+                    
+                    <Grid RowSpacing="0"
+                        ColumnSpacing="0"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Padding="20, 5, 0, 0"
+                        BackgroundColor="{StaticResource lightpurple}">
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="80" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label x:Name="GateTitleLabel"
+                            Text="GATE"
+                            TextColor="{StaticResource midgray}"
+                            FontSize="16"
+                            Grid.Row="0"
+                            Grid.Column="0"/>
+
+                        <Label x:Name="BoardingTitleLabel"
+                            Text="BOARDING"
+                            TextColor="{StaticResource midgray}"
+                            FontSize="16"
+                            Grid.Row="0"
+                            Grid.Column="1"/>
+
+                        <Label x:Name="NumberOfPassengersTitleLabel"
+                            Text="Seats"
+                            TextColor="{StaticResource midgray}"
+                            FontSize="16"
+                            Grid.Row="0"
+                            Grid.Column="2"/>
+
+                        <Label x:Name="GateLabel"
+                            Text="{Binding Gate}"
+                            TextColor="{StaticResource darkblue}"
+                            FontSize="28"
+                            Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"/>
+
+                        <Label x:Name="DepartsTitleLabel"
+                            Text="Departs"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{StaticResource darkblue}"
+                            FontSize="26"
+                            Grid.Row="1"
+                            Grid.Column="1"/>
+
+                        <Label x:Name="BoardingTimeLabel"
+                            Text="{Binding BoardingTime, StringFormat='{0:t}'}"
+                            LineBreakMode="TailTruncation"
+                            TextColor="{StaticResource darkblue}"
+                            FontSize="18"
+                            Grid.Row="2"
+                            Grid.Column="1"/>
+
+                        <Label x:Name="BoardingZoneLabel"
+                            Text="{Binding Zone, StringFormat='Zone {0}'}"
+                            TextColor="{StaticResource darkblue}"
+                            FontSize="18"
+                            FontAttributes="Italic"
+                            Grid.Row="3"
+                            Grid.Column="1"/>
+
+                        <Label x:Name="NumberOfPassengersLabel"
+                            Text="{Binding NumberOfPassengers}"
+                            TextColor="{StaticResource blue}"
+                            FontSize="28"
+                            Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Grid.Column="2"/>
+                    </Grid>
+                    
+                    <Label x:Name="OperatingLabel"
+                        Text="{Binding Airline, StringFormat='Operated by {0}'}"
+                        TextColor="{StaticResource gray}"
+                        BackgroundColor="White"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        FontSize="18"
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"/>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="bagDetailsView">
+                <Grid RowSpacing="5"
+                    ColumnSpacing="10"
+                    Padding="20, 0, 0, 0"
+                    Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView BackgroundColor="{StaticResource darkgray}"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="4"/>
+                    
+                    <controls:SvgImage
+                        Source="briefcase.svg"
+                        IsVisible="true"
+                        Color="{StaticResource darkgray}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"/>
+
+                    <Label x:Name="BagIdLabel"
+                        Text="{Binding BaggageId, StringFormat='Bag Id - {0}'}"
+                        TextColor="{StaticResource darkgray}"
+                        FontSize="24"
+                        Grid.Row="1"
+                        Grid.Column="1"/>
+
+                    <Label x:Name="WeightLabel"
+                        Text="{Binding Weight, StringFormat='Weight - {0:N}'}"
+                        TextColor="{StaticResource blue}"
+                        FontSize="20"
+                        Grid.Row="2"
+                        Grid.Column="1"/>
+
+                    <controls:SvgImage
+                        Source="{Binding BagStatusIcon}"
+                        IsVisible="true"
+                        Color="{StaticResource lightpurple}"
+                        VerticalOptions="Center"
+                        HeightRequest="20"
+                        WidthRequest="20"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"/>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

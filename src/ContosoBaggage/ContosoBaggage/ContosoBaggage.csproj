@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\awaiting-take-off.svg" />
+    <None Remove="Resources\back_arrow.svg" />
+    <None Remove="Resources\close_x.svg" />
+    <None Remove="Resources\flightland.svg" />
+    <None Remove="Resources\flighttakeoff.svg" />
+    <None Remove="Resources\play-arrow.svg" />
+    <None Remove="Resources\right-arrow.svg" />
+    <None Remove="Resources\boarding.svg" />
+    <None Remove="Resources\gate.svg" />
+    <None Remove="Resources\briefcase.svg" />
+    <None Remove="Resources\checked.svg" />
+    <None Remove="Resources\error.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.59.3" />
+    <PackageReference Include="SkiaSharp.Svg" Version="1.59.1" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+    <PackageReference Include="Microsoft.AppCenter" Version="1.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.3.0" />
+    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="1.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="Models\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Navigation\" />
+    <Folder Include="IoC\" />
+    <Folder Include="Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ContosoBaggage.Common\ContosoBaggage.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\awaiting-take-off.svg" />
+    <EmbeddedResource Include="Resources\back_arrow.svg" />
+    <EmbeddedResource Include="Resources\close_x.svg" />
+    <EmbeddedResource Include="Resources\flightland.svg" />
+    <EmbeddedResource Include="Resources\flighttakeoff.svg" />
+    <EmbeddedResource Include="Resources\right-arrow.svg" />
+    <EmbeddedResource Include="Resources\boarding.svg" />
+    <EmbeddedResource Include="Resources\gate.svg" />
+    <EmbeddedResource Include="Resources\briefcase.svg" />
+    <EmbeddedResource Include="Resources\checked.svg" />
+    <EmbeddedResource Include="Resources\error.svg" />
+  </ItemGroup>
+</Project>

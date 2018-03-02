@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:BaseContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ContosoBaggage.Pages.FlightDetailsPage"
+    xmlns:controls="clr-namespace:ContosoBaggage.Controls;assembly=ContosoBaggage"
+    xmlns:pages="clr-namespace:ContosoBaggage.Pages;assembly=ContosoBaggage"
+    xmlns:views="clr-namespace:ContosoBaggage.Views;assembly=ContosoBaggage"
+    xmlns:viewmodels="clr-namespace:ContosoBaggage.ViewModels;assembly=ContosoBaggage"
+    x:TypeArguments="viewmodels:FlightDetailsViewModel"
+    Title="{Binding Title}"
+    BackgroundColor="#EFEEF5">
+    
+    <pages:BaseContentPage.Content>
+         <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="300" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <views:NavigationBar
+                CanMoveBack="true"
+                Title="Add Treasure"
+                BackgroundColor="White"/>
+
+            <Image Source="header_other.jpg"
+                Aspect="AspectFill"
+                Grid.Row="1"/>
+
+            <BoxView BackgroundColor="{StaticResource gray}"
+                Grid.Row="1"
+                Opacity="0.3"/>
+
+            <StackLayout Orientation="Vertical"
+                Padding="10, 10, 10, 10"
+                Spacing="15"
+                Grid.Row="1">
+                
+                <Label x:Name="FlightNumberLabel"
+                    Text="{Binding FlightNumber}"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    FontSize="30"/>
+
+                <Label x:Name="FlightsLabel"
+                    Text="{Binding TotalBagsOnFlight, StringFormat='{0} bags on flight'}"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    FontSize="Large"/>
+                
+            </StackLayout>
+            
+            <ActivityIndicator 
+                Grid.Row="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}"
+                Color="{StaticResource gray}"/>
+
+            <controls:DataTemplatePresenter ItemTemplate="{StaticResource flightDetailsView}"
+                IsVisible="{Binding IsBusy, Converter={StaticResource notConverter}}"
+                Grid.Row="2">
+                <controls:DataTemplatePresenter.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FlightsCommand}"/>
+                </controls:DataTemplatePresenter.GestureRecognizers>
+            </controls:DataTemplatePresenter>
+
+            <ListView x:Name="bagsListView"
+                IsVisible="{Binding IsBusy, Converter={StaticResource notConverter}}"
+                ItemsSource="{Binding BagsForFlight}"
+                CachingStrategy="RetainElement"
+                SeparatorVisibility="None"
+                RowHeight="80"
+                Grid.Row="3">
+                <ListView.Behaviors>
+                    <controls:EventToCommandBehavior EventName="ItemTapped" 
+                        Command="{Binding BagSelectedCommand}" 
+                        EventArgsConverter="{StaticResource ItemTappedConverter}" />
+                </ListView.Behaviors>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:DataTemplatePresenter 
+                            ItemTemplate="{StaticResource bagDetailsView}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </Grid>
+
+    </pages:BaseContentPage.Content>
+</pages:BaseContentPage >

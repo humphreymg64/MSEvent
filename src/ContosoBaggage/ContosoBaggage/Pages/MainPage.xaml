@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:BaseContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ContosoBaggage.Pages.MainPage"
+    xmlns:pages="clr-namespace:ContosoBaggage.Pages;assembly=ContosoBaggage"
+    xmlns:views="clr-namespace:ContosoBaggage.Views;assembly=ContosoBaggage"
+    xmlns:viewmodels="clr-namespace:ContosoBaggage.ViewModels;assembly=ContosoBaggage"
+    xmlns:controls="clr-namespace:ContosoBaggage.Controls;assembly=ContosoBaggage"
+    x:TypeArguments="viewmodels:MainViewModel"
+    Title="{Binding Title}"
+    BackgroundColor="#EFEEF5">
+    
+    <pages:BaseContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="1" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <views:NavigationBar
+                CanMoveBack="false"
+                Title="Add Treasure"
+                BackgroundColor="White"/>
+
+            <Image Source="header_home.jpg"
+                Aspect="AspectFill"
+                Grid.Row="1"/>
+
+            <BoxView BackgroundColor="{StaticResource gray}"
+                Grid.Row="1"
+                Opacity="0.3"/>
+
+            <StackLayout Orientation="Vertical"
+                Padding="10, 10, 10, 10"
+                Spacing="15"
+                Grid.Row="1">
+                
+                <Label x:Name="UserLabel"
+                    Text="Welcome Aboard"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    FontSize="30"/>
+
+                <Label x:Name="DateLabel"
+                    Text="{Binding CurrentDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    FontSize="20"
+                    FontAttributes="Italic"/>
+
+                <BoxView BackgroundColor="{StaticResource aquablue}"
+                    HeightRequest="1"
+                    WidthRequest="120"
+                    HorizontalOptions="Center"/>
+
+                <Label x:Name="FlightsLabel"
+                    Text="{Binding TotalFlights, StringFormat='Number of flights today {0}'}"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center"
+                    FontSize="Large"/>
+                
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical"
+                Padding="15, 10, 15, 15"
+                Spacing="10"
+                BackgroundColor="{StaticResource lightgray}"
+                Grid.Row="2">
+
+                <Label x:Name="NextFlight"
+                    Text="Next Flight"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"
+                    FontSize="24"/>
+
+                <Label x:Name="TimeLabel"
+                    Text="{Binding FlightDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                    TextColor="{StaticResource darkgray}"
+                    HorizontalTextAlignment="Center"
+                    FontSize="18"
+                    FontAttributes="Italic"/>
+
+                <Label x:Name="FlightsLabel1"
+                    Text="{Binding TotalBagsOnFirstFlight, StringFormat='{0} bags on next flight'}"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"
+                    FontSize="Large"/>
+               
+            </StackLayout>
+
+            <BoxView BackgroundColor="{StaticResource midgray}"
+                Grid.Row="3"/>
+
+            <ActivityIndicator Grid.Row="4"
+                IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}"
+                Color="{StaticResource gray}"/>
+            
+            <controls:DataTemplatePresenter ItemTemplate="{StaticResource flightDetailsView}"
+                IsVisible="{Binding IsBusy, Converter={StaticResource notConverter}}"
+                Grid.Row="4">
+                <controls:DataTemplatePresenter.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FlightsCommand}"/>
+                </controls:DataTemplatePresenter.GestureRecognizers>
+            </controls:DataTemplatePresenter>
+        </Grid>
+    </pages:BaseContentPage.Content>
+</pages:BaseContentPage >
